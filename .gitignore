@@ -1,0 +1,6 @@
+## Ignore IntelliJ-generated files and directories
+.idea
+*.iml
+
+## Ignore Mac generated files, wherever they are
+.DS_Store
