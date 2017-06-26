@@ -48,7 +48,7 @@ Valid Username and Password
     ${Site2}=           Set Up A Site Entry     ${HTTPS}            /private?children=true    ${auth}               200
     ${Site3}=           Set Up A Site Entry     ${HTTPS_NA}         /                         ${auth}               200
     @{List Of Sites}=   Create List             ${Site1}            ${Site2}                  ${Site3}
-    Send Request to All Listed Sites            @{List Of Sites}        @{ListOfSites}
+    Send Request to All Listed Sites            @{List Of Sites}
 
 
 *** Keywords ***
@@ -64,12 +64,12 @@ Send Request to All Listed Sites
     \                   ${Path}=                Get From Dictionary  ${entry}                Path
     \                   ${AuthValue}=           Get From Dictionary  ${entry}                AuthValue
     \                   ${ExceptedStatusCode}=  Get From Dictionary  ${entry}                ExceptedStatusCode
-    \                   Create Session          rest	             ${SiteName}             auth=${AuthValue}
-    \                   ${resp}=	            Get Request	         rest                    ${Path}
-    \                   Should Be Equal As Strings	                 ${resp.status_code}	 ${ExceptedStatusCode}
+    \                   Create Session          rest                 ${SiteName}             auth=${AuthValue}
+    \                   ${resp}=                Get Request          rest                    ${Path}
+    \                   Should Be Equal As Strings                   ${resp.status_code}     ${ExceptedStatusCode}
 
 Set Up A Site Entry
-    [Arguments]         ${SiteName}             ${Path}              ${AuthValue}             ${Code}
-    ${site}=            Create Dictionary       SiteName=${SiteName}
-    ...                 Path=${Path}            AuthValue=${AuthValue}                        ExceptedStatusCode=${Code}
+    [Arguments]         ${SiteName}             ${Path}              ${AuthValue}            ${Code}
+    ${site}=            Create Dictionary       Path=${Path}         AuthValue=${AuthValue}  SiteName=${SiteName}
+    ...                 ExceptedStatusCode=${Code}
     [return]            ${site}

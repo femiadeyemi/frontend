@@ -43,18 +43,18 @@ Send Request to All Listed Sites
     \              ${Path}=                      Get From Dictionary    ${entry}                Path
     \              ${ExpectedResponseHeader}=    Get From Dictionary    ${entry}                ExpectedResponseHeader
     \              ${RequestHeaders}=            Get From Dictionary    ${entry}                RequestHeaders
-    \              Create Session                rest	                ${SiteName}
-    \              ${resp}=	                     Get Request	        rest                    ${Path}
+    \              Create Session                rest                   ${SiteName}
+    \              ${resp}=                      Get Request            rest                    ${Path}
     ...            headers=${RequestHeaders}
-    \              Should Be Equal As Strings	 ${resp.status_code}    ${StatusCode}
-    \              Should Not Contain	         ${resp.headers}        ${ExpectedResponseHeader.exclude}
+    \              Should Be Equal As Strings    ${resp.status_code}    ${StatusCode}
+    \              Should Not Contain            ${resp.headers}        ${ExpectedResponseHeader.exclude}
     ...            case_insensitive=False
-    \              Should Contain	             ${resp.headers}        ${ExpectedResponseHeader.include}
+    \              Should Contain                ${resp.headers}        ${ExpectedResponseHeader.include}
     ...            case_insensitive=False
 
 Set Up A Site Entry
-    [Arguments]    ${SiteName}             ${Path}                       ${ExpectedResponseHeader}
+    [Arguments]    ${SiteName}                   ${Path}                ${ExpectedResponseHeader}
     ...            ${RequestHeaders}
-    ${site}=       Create Dictionary       SiteName=${SiteName}          Path=${Path}
-    ...            ExpectedResponseHeader=${ExpectedResponseHeader}      RequestHeaders=${RequestHeaders}
+    ${site}=       Create Dictionary             SiteName=${SiteName}   Path=${Path}
+    ...            RequestHeaders=${RequestHeaders}                     ExpectedResponseHeader=${ExpectedResponseHeader}
     [return]       ${site}

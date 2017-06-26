@@ -12,14 +12,14 @@ ${HTTPS_NA}       https://${SERVER}:3882/${ENDPOINT}
 
 *** Keywords ***
 Run WhoAmI Command
-    ${whoamI}=              Run Process                   whoami          shell=true
-    [return]                ${whoamI.stdout}
+    ${whoamI}=                Run Process                   whoami           shell=true
+    [return]                  ${whoamI.stdout}
 
 Get Username
     ${whoamI} =               Run WhoAmI Command
-    ${username} =             Get Variable Value          ${username}      ${whoamI}
+    ${username} =             Get Variable Value            ${username}      ${whoamI}
     Set Suite Variable        ${username}
 
 Get Password
-    ${password} =             Get Variable Value          ${password}      password
+    ${password} =             Get Variable Value            ${password}      password
     Set Suite Variable        ${password}
