@@ -3,11 +3,17 @@ Series of dCache Frontend Service Tests
 
 dCache Frontend Service is a Restful API for dCache. These series of tests can be only run after the system-test module have been successfully build and started.
 
-This document contain instructions on installing the framework behind the test system and how to run the test(s).
+This document contain instructions on the recommended installation procedure for software behind the test system and how to run the test(s).
 
---------------------------------------------------------
-1. Robot Framework Installation Procedure
----------------------------------------------------------
+
+### Table of Contents  
+**[Robot Framework Installation Procedure](#Robot-Framework-Installation-Procedure)**<br> 
+**[How to Run the test(s)](#How-to-Run-the-test)**<br> 
+
+
+<a name="Robot-Framework-Installation-Procedure"/>
+
+## Robot Framework Installation Procedure
 
 We are using [Robot Framework](http://robotframework.org/) for our test system. Robot Framework utilizes the keyword-driven testing automation approach. How to install Robot Framework is well documented [here](https://github.com/robotframework/robotframework/blob/master/INSTALL.rst). However, below is the installation procedure I will recommend:
 
@@ -66,9 +72,11 @@ Via pip, execute the following command one after the other
 >     pip install -U requests
 >     pip install -U robotframework-requests
 
------------------------
-2. Running the test
------------------------
+
+<a name="How-to-Run-the-test"/>
+
+## How to Run the test(s)
+
 Once all the necessary dependencies had been installed, now you can run the test.
 Change directory to where dcache source files.
 
@@ -76,7 +84,13 @@ Change directory to where dcache source files.
 
 >     robot packages/system-test/target/bin/functional_test/frontend
 
-###### For a particular test:
+###### For a particular test suite: 
+Specify the path to the file (that is, the test-suite file):
+>     robot  [path_to_the_test_suite_file]
+
+Example
+-------
+Say the test-suite file path is `packages/system-test/target/bin/functional_test/frontend/authentication-test/invalid_login_attempt.robot`; hence simply run the command below to test it:
 >     robot packages/system-test/target/bin/functional_test/frontend/authentication-test/invalid_login_attempt.robot
 
 ###### To test a particular test case in a test suite,
@@ -86,11 +100,21 @@ or
 
 >     robot -t [name_of_the_test_case] [path_to_the_test_suite_where_the_test_case_is]
 
-For example to test a test case with name: _Send A GET Requests Without Suppressing WWW-Authenticate_ and this is located inside _packages/frontend/authentication-test/invalid_login_attempt.robot_ ; your robot command test will look like this:
+Example:
+---------
+To test a test case with 
+
+    name: _Send A GET Requests Without Suppressing WWW-Authenticate_ 
+    
+and the test suite file path
+
+    path: _packages/frontend/authentication-test/invalid_login_attempt.robot_ ; 
+    
+your robot command test will look like this:
 >     robot --test 'Send A GET Requests Without Suppressing WWW-Authenticate' packages/system-test/target/bin/functional_test/frontend/authentication-test/invalid_login_attempt.robot
 
 ###### For a particular tag:
->     robot -i xxx
+>     robot --include [space_seperated_tag_name/s]  [path_to_the_test]
 
 By default, the system-test uses default credentials, that is, username and password. This might not work if it not setup properly. Therefore, to use a specific username and password, simply do this:
 
